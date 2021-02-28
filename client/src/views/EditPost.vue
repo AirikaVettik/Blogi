@@ -1,92 +1,79 @@
 <template>
-
   <div class="container">
-    
     <h2>Muuda postitust!</h2>
 
-          <div>
-      
-              <div class>
-                <label for="title">Pealkiri: </label>
-                <input type="text" name="title" v-model="post.title"/>
-              </div>
+    <div>
+      <div class>
+        <label for="title">Pealkiri: </label>
+        <input type="text" name="title" v-model="post.title" />
+      </div>
 
-              <div>
-                <textarea
-                  type="text"
-                  id="create-post"
-                  v-model="post.post"
-                  placeholder="Sinu mõtted">
-                </textarea>
-              </div>
+      <div>
+        <textarea
+          type="text"
+          id="create-post"
+          v-model="post.post"
+          placeholder="Sinu mõtted"
+        >
+        </textarea>
+      </div>
 
-              <div>
-                <label for="author">Autor: </label>
-                <input type="text" name="author" v-model="post.author"/> 
-              </div>
+      <div>
+        <label for="author">Autor: </label>
+        <input type="text" name="author" v-model="post.author" />
+      </div>
 
-              <button @click="updatePost">Muudan postitust!</button>
-           
-          </div>
+      <button @click="updatePost">Muudan postitust!</button>
+    </div>
 
     <hr />
   </div>
 </template>
 
 <script>
-
-
 export default {
   name: "updatePost",
   data() {
     return {
-        post: {
-          title: '',
-          post: '',
-          author: ''
-        },
-        error: ""
-    }
+      post: {
+        title: "",
+        post: "",
+        author: "",
+      },
+      error: "",
+    };
   },
   methods: {
-
-      getPost(id){
-      console.log(id)
-        this.$http.get('/api/posts/post/' + id)
-            .then ((response) => {
-              console.log(response)  
-              this.post = response.data.post            
-            });
+    getPost(id) {
+      this.$http.get("/api/posts/post/" + id).then((response) => {
+        this.post = response.data.post;
+      });
     },
 
     updatePost() {
-
       let updatePost = {
         title: this.post.title,
         post: this.post.post,
-        author: this.post.author
-    }
-      this.$http.patch('/api/posts/post/' + this.$route.params.id, updatePost)
-        .then ((response) => {
-          console.log(response)
-          this.$router.push('/posts')
-        })
-    }
+        author: this.post.author,
+      };
+      this.$http
+        .patch("/api/posts/post/" + this.$route.params.id, updatePost)
+        .then((response) => {
+          this.$router.push("/posts");
+        });
+    },
   },
   created: function() {
-    this.getPost(this.$route.params.id)
+    this.getPost(this.$route.params.id);
   },
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-
 <style scoped>
-
 div.container {
   max-width: 700px;
   margin: 0 auto;
-  padding-top: 50px
+  padding-top: 50px;
 }
 
 label {
@@ -136,7 +123,7 @@ p.error {
 div.posts {
   position: relative;
   border: 1px solid black;
-  background-color: #e7d1ff ;
+  background-color: #e7d1ff;
   padding: 10px 10px 30px 10px;
   margin-bottom: 15px;
 }
@@ -146,5 +133,4 @@ p.text {
   font-weight: 400;
   margin-bottom: 0;
 }
-
 </style>

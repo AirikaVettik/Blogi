@@ -1,64 +1,58 @@
 <template>
-
   <div class="container">
-    
     <div>
       <h1>Tere tulemast, {{ user.name }}!</h1>
     </div>
 
     <h2>Kirjuta uus postitus!</h2>
 
-          <div>
-            <form>
-              <div class>
-                <label for="title">Pealkiri: </label>
-                <input type="text" name="title" v-model="post.title" />
-              </div>
+    <div>
+      <form>
+        <div class>
+          <label for="title">Pealkiri: </label>
+          <input type="text" name="title" v-model="post.title" />
+        </div>
 
-              <div>
-                <textarea
-                  type="text"
-                  id="create-post"
-                  v-model="post.post"
-                  placeholder="Sinu mõtted">
-                </textarea>
-              </div>
+        <div>
+          <textarea
+            type="text"
+            id="create-post"
+            v-model="post.post"
+            placeholder="Sinu mõtted"
+          >
+          </textarea>
+        </div>
 
-              <div>
-                <label for="author">Autor: </label>
-                <input type="text" name="author" v-model="post.author" />
-              </div>
-          
-              <button @click="createPost">Lisan uue postituse!</button>
-            </form>
-          </div>
+        <div>
+          <label for="author">Autor: </label>
+          <input type="text" name="author" v-model="post.author" />
+        </div>
+
+        <button @click="createPost">Lisan uue postituse!</button>
+      </form>
+    </div>
 
     <hr />
 
     <p class="error" v-if="error">{{ error }}</p>
 
     <div class="post">
-      <div class="posts" v-for="(post) in posts"
-        v-bind:key="post._id"
-      >
-
-        <p class="date"> {{ post.date }}</p>
+      <div class="posts" v-for="post in posts" v-bind:key="post._id">
+        <p class="date">{{ post.date }}</p>
         <h1 class="text">{{ post.title }}</h1>
-        <p class="text">{{ post.post}}</p>
-        <p class="text">Autor: {{ post.author}}</p>
-
+        <p class="text">{{ post.post }}</p>
+        <p class="text">Autor: {{ post.author }}</p>
 
         <router-link v-bind:to="'/editpost/' + post._id">Muuda</router-link>
         <button @click="deletePost(post._id, post.index)">Kustuta</button>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios'
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   name: "Post",
@@ -68,7 +62,7 @@ export default {
       post: {
         title: "",
         post: "",
-        author: ""
+        author: "",
       },
       error: "",
     };
@@ -76,65 +70,56 @@ export default {
 
   computed: mapGetters(["user"]),
 
-    async created() {
-
-      const posts = await axios ({
-        url: 'api/posts/',
-        method: 'GET',
-        headers: {}
-      })
-      console.log('posts', posts)
-      this.posts = posts.data.allPosts.reverse()
-      this.getProfile()
-    },
-
+  async created() {
+    const posts = await axios({
+      url: "api/posts/",
+      method: "GET",
+      headers: {},
+    });
+    this.posts = posts.data.allPosts.reverse();
+    this.getProfile();
+  },
 
   methods: {
-
-    ...mapActions(["getProfile"]), 
+    ...mapActions(["getProfile"]),
 
     createPost() {
-      let newPost= {
-                title: this.post.title,
-                post: this.post.post,
-                author: this.post.author,
-        };
-        console.log(newPost);
-        this.submitToServer(newPost)
+      let newPost = {
+        title: this.post.title,
+        post: this.post.post,
+        author: this.post.author,
+      };
+      this.submitToServer(newPost);
     },
-      submitToServer(data) {
-        axios.post('api/posts/post', data)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch ((error) => {
-                console.log(error.message)
-            });
+    submitToServer(data) {
+      axios
+        .post("api/posts/post", data)
+        .then((response) => {
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
 
-    deletePost (id, index) {
-        axios.delete("/api/posts/" + id)
-            .then (() => {
-              this.posts.splice(index, 1);
-            })
-            .catch((error) => {
-              console.log(error.message)
-
-            })
-      },
-     
-    }
-  }
+    deletePost(id, index) {
+      axios
+        .delete("/api/posts/" + id)
+        .then(() => {
+          this.posts.splice(index, 1);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+  },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-
 <style scoped>
-
 div.container {
   max-width: 700px;
   margin: 0 auto;
-  padding-top: 50px
+  padding-top: 50px;
 }
 
 label {
@@ -184,7 +169,7 @@ p.error {
 div.posts {
   position: relative;
   border: 1px solid black;
-  background-color: #e7d1ff ;
+  background-color: #e7d1ff;
   padding: 10px 10px 30px 10px;
   margin-bottom: 15px;
 }
@@ -194,5 +179,4 @@ p.text {
   font-weight: 400;
   margin-bottom: 0;
 }
-
 </style>

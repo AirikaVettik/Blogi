@@ -1,20 +1,16 @@
-
 <template>
-    <div class="alert alert-message"> 
+  <div class="alert alert-message">
     {{ msg }}
-    </div>
+  </div>
 </template>
 
 <script>
-
 export default {
-    props: ['msg']  
+  props: ["msg"],
 };
-
 </script>
 
 <style scoped>
-
 .alert {
   border-radius: 5px;
   width: 30%;
@@ -23,5 +19,5 @@ export default {
 .alert-message {
   background: red;
   color: #fff;
-} 
+}
 </style>

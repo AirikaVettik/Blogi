@@ -1,34 +1,34 @@
 <template>
   <div class="login">
     <div>
-
       <form @submit.prevent="loginUser">
-      
         <label for="username">Kasutajanimi:</label>
-        
+
         <div>
           <input id="username" type="text" name="username" v-model="username" />
         </div>
-       
+
         <label for="password">Parool:</label>
-        
+
         <div>
-          <input id="password" type="password" name="password" v-model="password" />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            v-model="password"
+          />
         </div>
 
         <button>Logi sisse!</button>
-        
       </form>
 
       <router-link to="/register"> Registreeri kasutajaks </router-link>
-
     </div>
   </div>
 </template>
 
 <script>
-
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   name: "login",
@@ -39,37 +39,31 @@ export default {
     };
   },
   methods: {
-      ...mapActions(['login']),
-      loginUser() {
-        let user = {
-          username: this.username,
-          password: this.password,
-        };
-        this.login(user)
-          .then (res => {
-            if (res.data.success) {
-              this.$router.push('/posts')
-            }
-          })
-          .catch (err => {
-            console.log(err)
-          });
-      }
-  } 
+    ...mapActions(["login"]),
+    loginUser() {
+      let user = {
+        username: this.username,
+        password: this.password,
+      };
+      this.login(user)
+        .then((res) => {
+          if (res.data.success) {
+            this.$router.push("/posts");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
-
 </script>
 
-
-
-
-
 <style scoped>
-
 form {
   max-width: 700px;
   margin: 0 auto;
-  padding-top: 50px
+  padding-top: 50px;
 }
 
 label {
