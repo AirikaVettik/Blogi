@@ -95,6 +95,7 @@ export default {
       axios
         .post("api/posts/post", data)
         .then((response) => {
+          console.log(response);
         })
         .catch((error) => {
           console.log(error.message);

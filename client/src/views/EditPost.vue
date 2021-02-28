@@ -59,6 +59,7 @@ export default {
       this.$http
         .patch("/api/posts/post/" + this.$route.params.id, updatePost)
         .then((response) => {
+          console.log(response);
           this.$router.push("/posts");
         });
     },
