@@ -21,3 +21,7 @@ PORT: 8080 (frontend)
 Mongo db
 ```
 
+## Author
+```
+Airika Vettik
+```
