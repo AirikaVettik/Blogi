@@ -38,12 +38,11 @@
 
     <div class="post">
       <div class="posts" v-for="post in posts" v-bind:key="post._id">
-        <p class="date">{{ post.date }}</p>
         <h1 class="text">{{ post.title }}</h1>
         <p class="text">{{ post.post }}</p>
         <p class="text">Autor: {{ post.author }}</p>
 
-        <router-link v-bind:to="'/editpost/' + post._id">Muuda</router-link>
+        <button><router-link v-bind:to="'/editpost/' + post._id">Muuda</router-link></button>
         <button @click="deletePost(post._id, post.index)">Kustuta</button>
       </div>
     </div>
