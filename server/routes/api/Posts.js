@@ -40,7 +40,7 @@ router.get('/post/:id', async (req, res) => {
 
 
 //Update Post
-router.put('/:id', async (req, res) => {
+router.patch('/post/:id', async (req, res) => {
     try {
         await Post.updateOne( {_id: req.params.id}, {
             $set: req.body

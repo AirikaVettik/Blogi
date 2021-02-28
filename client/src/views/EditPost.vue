@@ -5,7 +5,7 @@
     <h2>Muuda postitust!</h2>
 
           <div>
-            <form>
+      
               <div class>
                 <label for="title">Pealkiri: </label>
                 <input type="text" name="title" v-model="post.title"/>
@@ -26,7 +26,7 @@
               </div>
 
               <button @click="updatePost">Muudan postitust!</button>
-            </form>
+           
           </div>
 
     <hr />
@@ -50,11 +50,12 @@ export default {
   },
   methods: {
 
-     getPost(id){
+      getPost(id){
       console.log(id)
         this.$http.get('/api/posts/post/' + id)
-            .then (function (response){
-              this.post = response.body;
+            .then ((response) => {
+              console.log(response)  
+              this.post = response.data.post            
             });
     },
 
@@ -65,9 +66,10 @@ export default {
         post: this.post.post,
         author: this.post.author
     }
-      this.$http.put('api/posts/post/' + this.$route.params.id, updatePost)
-        .then (function(){
-          this.$router.push('/posts/')
+      this.$http.patch('/api/posts/post/' + this.$route.params.id, updatePost)
+        .then ((response) => {
+          console.log(response)
+          this.$router.push('/posts')
         })
     }
   },
