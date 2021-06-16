@@ -6,8 +6,8 @@ npm install
 
 ### Start
 ```
-npm run dev (backend)
-npm run serve (frontend)
+Be in server folder - npm run dev (backend)
+Be in client folder - npm run serve (frontend)
 ```
 
 ### Working on
