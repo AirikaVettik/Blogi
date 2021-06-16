@@ -1,7 +1,8 @@
 
 ## Project setup
 ```
-npm install
+Be in server folder - npm install
+Be in client folder - npm install
 ```
 
 ### Start
